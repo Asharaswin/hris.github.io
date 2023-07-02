@@ -18,41 +18,10 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-        'two_factor_recovery_codes',
-        'two_factor_secret',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
-     */
     protected $appends = [
         'profile_photo_url',
+        'cover_url'
     ];
 
     public function onboarding() {
@@ -63,9 +32,22 @@ class User extends Authenticatable
         return $this->hasMany(UserContract::class);
     }
 
+    public function activeContract() {
+        return $this->contracts->first();
+    }
+
     public function familyData()
     {
         return $this->hasMany(UserFamilyData::class);
+    }
+
+    public function getCoverUrlAttribute($value)
+    {
+        if($this->profile_photo_path) {
+            return $this->profile_photo_path;
+        } else {
+            return asset('admin-source/build/assets/img/team-1.jpg');
+        }
     }
 
     public function formalEducation()
@@ -116,7 +98,6 @@ class User extends Authenticatable
                 return 'onboarding.step-two';
                 break;
             
-
             case 250:
                 return 'onboarding.step-three';
                 break;
@@ -138,7 +119,7 @@ class User extends Authenticatable
                 return 'onboarding.step-seven';
                 break;
 
-            case 825:
+            case 875:
                 return 'onboarding.step-eight';
                 break;
 
@@ -164,5 +145,10 @@ class User extends Authenticatable
     public function familySiblings() 
     {
         return $this->familyData->where('relation', 'Saudara');
+    }
+
+    public function familySpouse() 
+    {
+        return $this->familyData->whereIn('relation', ['Suami', 'Istri'])->first();
     }
 }

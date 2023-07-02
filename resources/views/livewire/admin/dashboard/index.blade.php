@@ -1,4 +1,15 @@
 <div>
+  @section('page-title', 'Dashboard - HRIS')
+  @section('breadcrumb')
+    <ol class="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
+      <li class="leading-normal text-sm">
+        <a class="opacity-50 text-slate-700" href="javascript:;">Eigen</a>
+      </li>
+      <li class="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']" aria-current="page">Dashboard</li>
+    </ol>
+    <h6 class="mb-0 font-bold capitalize">Dashboard</h6>
+  @endsection
+
     <div class="w-full px-6 py-6 mx-auto">
       <!-- row 1 -->
       <div class="flex flex-wrap -mx-3">
@@ -33,7 +44,7 @@
               <div class="flex flex-row -mx-3">
                 <div class="flex-none w-2/3 max-w-full px-3">
                   <div>
-                    <p class="mb-0 font-sans font-semibold leading-normal text-sm">Today's Users</p>
+                    <p class="mb-0 font-sans font-semibold leading-normal text-sm">Total Onboarding</p>
                     <h5 class="mb-0 font-bold">
                       2,300
                       <span class="leading-normal text-sm font-weight-bolder text-lime-500">+3%</span>
@@ -114,22 +125,22 @@
             ])
             @endcomponent
         </div>
-    </div>
+      </div>
 
-    <div class="flex flex-wrap mt-6 -mx-3">
-      <div class="w-full max-w-full px-3 mt-0 lg:w-4/12 lg:flex-none">
-          @component('livewire.admin.dashboard.components.job-level-chart', [
-            'data' => $user_job_levels
-          ])
-          @endcomponent
+      <div class="flex flex-wrap mt-6 -mx-3">
+        <div class="w-full max-w-full px-3 mt-0 lg:w-4/12 lg:flex-none">
+            @component('livewire.admin.dashboard.components.job-level-chart', [
+              'data' => $user_job_levels
+            ])
+            @endcomponent
+        </div>
+        <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-4/12 lg:flex-none">
+            @component('livewire.admin.dashboard.components.employee-status-chart', [
+              'data' => $user_statuses
+            ])
+            @endcomponent
+        </div>
       </div>
-      <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-4/12 lg:flex-none">
-          @component('livewire.admin.dashboard.components.employee-status-chart', [
-            'data' => $user_statuses
-          ])
-          @endcomponent
-      </div>
-  </div>
       @include('layouts.admin.sidebar')
     </div>
 

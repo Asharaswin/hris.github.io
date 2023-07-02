@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_family_data', function (Blueprint $table) {
+        Schema::create('onboarding_photos', function (Blueprint $table) {
             $table->id();
-            $table->enum('relation', ['Ayah', 'Ibu', 'Saudara', 'Istri', 'Suami', 'Anak']);
-            $table->string('name');
-            $table->string('birth_place');
-            $table->date('birth_date');
-            $table->string('last_education');
-            $table->string('job');
+            $table->enum('step', ['Step One', 'Step Two', 'Step Three', 'Step Four', 'Step Five', 'Step Six', 'Step Seven', 'Step Eight']);
+            $table->string('document_url');
+            $table->string('description');
             $table->timestamps();
 
             $table->unsignedBigInteger('user_id')->nullable();
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_family_data');
+        Schema::dropIfExists('onboarding_photos');
     }
 };

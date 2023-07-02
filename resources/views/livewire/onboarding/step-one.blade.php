@@ -208,11 +208,11 @@
                                     <div class="w-3/4">
                                         <div class="flex">
                                             <div class="flex items-center mr-4">
-                                                <input wire:model.defer="marital_status" id="inline-radio" type="radio" value="Menikah" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2">
+                                                <input wire:model.defer="marital_status" id="marital_menika" type="radio" value="Menikah" name="inline-radio-group-2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2">
                                                 <label for="inline-radio" class="ml-2 text-sm">Menikah</label>
                                             </div>
                                             <div class="flex items-center mr-4">
-                                                <input wire:model.defer="marital_status" id="inline-2-radio" type="radio" value="Belum Menikah" name="inline-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2">
+                                                <input wire:model.defer="marital_status" id="marital_belum" type="radio" value="Belum Menikah" name="inline-radio-group-2" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2">
                                                 <label for="inline-2-radio" class="ml-2 text-sm">Belum Menikah</label>
                                             </div>
                                             @error('marital_status') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
@@ -311,10 +311,8 @@
                                     <div class="w-3/4">
                                         <select wire:model.defer='citizenship' id="citizenship" class="@error('citizenship') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
                                             <option selected>Pilih Kewarganegaraan</option>
-                                            <option value="US">United States</option>
-                                            <option value="CA">Canada</option>
-                                            <option value="FR">France</option>
-                                            <option value="DE">Germany</option>
+                                            <option value="WNI">WNI</option>
+                                            <option value="WNA">WNA</option>
                                         </select>
                             
                                         @error('citizenship') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
@@ -327,10 +325,10 @@
                                     <div class="w-3/4">
                                         <select wire:model.defer='blood_type' id="blood_type" class="@error('blood_type') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
                                             <option selected>Pilih Golongan Darah</option>
-                                            <option value="US">United States</option>
-                                            <option value="CA">Canada</option>
-                                            <option value="FR">France</option>
-                                            <option value="DE">Germany</option>
+                                            <option value="O">O</option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="AB">AB</option>
                                         </select>
                             
                                         @error('blood_type') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
@@ -445,160 +443,98 @@
                                 </div>
 
                                 <div class="py-4 text-end ">
-                                    <a wire:click="addFamily" class="rounded-full bg-lime-800 px-4 py-2  text-white">Simpan</a>
+                                    <a wire:click="addFamily" class="rounded-full bg-lime-800 px-4 py-2  text-white">Tambah</a>
                                 </div>
                             </div>
+                            <hr class="my-2">
+                                <div class="flex">
+                                    <div class="w-1/2">
+                                        <p class="text-lg font-semibold mt-3">Ayah</p>
+                                    </div>
+                                    @if ($father)
+                                    <div class="w-1/2 text-end">
+                                        <a wire:click="deleteFamily(`{{$father->id}}`)" class="rounded-full bg-lime-800 px-4 py-2 text-xs text-white">Hapus</a>
+                                    </div>
+                                    @endif
+                                </div>
                                 @if ($father)
-                                    <p class="text-lg font-semibold mt-3">Ayah</p>
-                                    <div class="ms-4">
-                                        <div class="flex">
-                                            <div class="w-1/4 my-auto">
-                                                Nama
-                                            </div>
-                                            <div class="w-3/4">
-                                                <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $father->name }}">
-                                            </div>
-                                        </div>
-                                        <div class="flex pt-2">
-                                            <div class="w-1/4 my-auto">
-                                                Tempat, Tanggal Lahir
-                                            </div>
-                                            <div class="w-3/4">
-                                                <div class="grid gap-2 mb-0 md:grid-cols-2">
-                                                    <div>
-                                                        <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $father->birth_place }}">
-                                                    </div>
-                                                    <div>
-                                                        <input type="date" id="last_name" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " disabled value="{{ $father->birth_date }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex pt-2">
-                                            <div class="w-1/4 my-auto">
-                                                Pendidikan Terkahir
-                                            </div>
-                                            <div class="w-3/4">
-                                                <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $father->last_education }}">
-                                            </div>
-                                        </div>
-                                        <div class="flex pt-2">
-                                            <div class="w-1/4 my-auto">
-                                                Pekerjaan
-                                            </div>
-                                            <div class="w-3/4">
-                                                <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $father->job }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                                @if ($mother)
-                                    <hr class="my-2">
+                                    @component('livewire.onboarding.component.family-data', [
+                                        'data' => $father
+                                    ])
+                                    @endcomponent
+                                @else
                                     <div class="flex">
-                                        <div class="w-1/2">
-                                            <p class="text-lg font-semibold mt-3">Ibu</p>
-                                        </div>
-                                        <div class="w-1/2 text-end">
-                                            <a wire:click="addFamily" class="rounded-full bg-lime-800 px-4 py-2 text-xs text-white">Hapus</a>
-                                        </div>
+                                        <div class="w-full text-center py-3">
+                                            No Data    
+                                        </div>    
+                                    </div>    
+                                @endif
+
+                                <hr class="my-2">
+
+                                <div class="flex">
+                                    <div class="w-1/2">
+                                        <p class="text-lg font-semibold mt-3">Ibu</p>
                                     </div>
-                                    <div class="ms-4">
-                                        <div class="flex">
-                                            <div class="w-1/4 my-auto">
-                                                Nama
-                                            </div>
-                                            <div class="w-3/4">
-                                                <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $mother->name }}">
-                                            </div>
-                                        </div>
-                                        <div class="flex pt-2">
-                                            <div class="w-1/4 my-auto">
-                                                Tempat, Tanggal Lahir
-                                            </div>
-                                            <div class="w-3/4">
-                                                <div class="grid gap-2 mb-0 md:grid-cols-2">
-                                                    <div>
-                                                        <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $mother->birth_place }}">
-                                                    </div>
-                                                    <div>
-                                                        <input type="date" id="last_name" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " disabled value="{{ $mother->birth_date }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="flex pt-2">
-                                            <div class="w-1/4 my-auto">
-                                                Pendidikan Terkahir
-                                            </div>
-                                            <div class="w-3/4">
-                                                <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $mother->last_education }}">
-                                            </div>
-                                        </div>
-                                        <div class="flex pt-2">
-                                            <div class="w-1/4 my-auto">
-                                                Pekerjaan
-                                            </div>
-                                            <div class="w-3/4">
-                                                <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $mother->job }}">
-                                            </div>
-                                        </div>
+                                    @if ($mother)
+                                    <div class="w-1/2 text-end">
+                                        <a wire:click="deleteFamily(`{{$mother->id}}`)" class="rounded-full bg-lime-800 px-4 py-2 text-xs text-white">Hapus</a>
                                     </div>
+                                    @endif
+                                </div>
+                                @if ($mother)
+                                    @component('livewire.onboarding.component.family-data', [
+                                        'data' => $mother
+                                    ])
+                                    @endcomponent
+                                @else
+                                    <div class="flex">
+                                        <div class="w-full text-center py-3">
+                                            No Data    
+                                        </div>    
+                                    </div>    
                                 @endif
                                 
+                                <hr class="my-2">
+                                <p class="text-lg font-semibold mt-3">Saudara</p>
                                 @if (count($siblings) > 0)
-                                    <hr class="my-2">
-                                    <p class="text-lg font-semibold mt-3">Saudara</p>
                                     @foreach ($siblings as $item)
                                         <div class="flex">
                                             <div class="w-1/2">
                                                 <p class="text-md font-semibold mt-3">{{ $item->name }}</p>
                                             </div>
                                             <div class="w-1/2 text-end">
-                                                <a wire:click="addFamily" class="rounded-full bg-lime-800 px-4 py-2 text-xs text-white">Hapus</a>
+                                                <a wire:click="deleteFamily(`{{$item->id}}`)" class="rounded-full bg-lime-800 px-4 py-2 text-xs text-white">Hapus</a>
                                             </div>
                                         </div>
-                                        <div class="ms-4">
-                                            <div class="flex">
-                                                <div class="w-1/4 my-auto">
-                                                    Nama
-                                                </div>
-                                                <div class="w-3/4">
-                                                    <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $item->name }}">
-                                                </div>
-                                            </div>
-                                            <div class="flex pt-2">
-                                                <div class="w-1/4 my-auto">
-                                                    Tempat, Tanggal Lahir
-                                                </div>
-                                                <div class="w-3/4">
-                                                    <div class="grid gap-2 mb-0 md:grid-cols-2">
-                                                        <div>
-                                                            <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $item->birth_place }}">
-                                                        </div>
-                                                        <div>
-                                                            <input type="date" id="last_name" class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " disabled value="{{ $item->birth_date }}">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex pt-2">
-                                                <div class="w-1/4 my-auto">
-                                                    Pendidikan Terkahir
-                                                </div>
-                                                <div class="w-3/4">
-                                                    <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $item->last_education }}">
-                                                </div>
-                                            </div>
-                                            <div class="flex pt-2">
-                                                <div class="w-1/4 my-auto">
-                                                    Pekerjaan
-                                                </div>
-                                                <div class="w-3/4">
-                                                    <input type="text" id="first_name" class=" border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" disabled value="{{ $item->job }}">
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @component('livewire.onboarding.component.family-data', [
+                                            'data' => $item
+                                        ])
+                                        @endcomponent
                                     @endforeach
+                                @else
+                                <div class="flex">
+                                    <div class="w-full text-center py-3">
+                                        No Data    
+                                    </div>    
+                                </div>    
+                                @endif
+
+                                @if ($marital_status == 'Menikah')
+                                <hr class="my-2">
+                                <p class="text-lg font-semibold mt-3">Istri / Suami</p>
+                                    @if ($spouse)
+                                    @component('livewire.onboarding.component.family-data', [
+                                        'data' => $spouse
+                                    ])
+                                    @endcomponent
+                                    @else
+                                    <div class="flex">
+                                        <div class="w-full text-center py-3">
+                                            No Data    
+                                        </div>    
+                                    </div> 
+                                    @endif  
                                 @endif
                             @elseif($step == 3)
                                 <div>
@@ -626,7 +562,7 @@
                                             <div class="flex -mx-2 mb-2">
                                                 <div class="w-1/6 mx-2">
                                                     <select wire:model.defer="strata" id="strata" class="@error('strata') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5">
-                                                        <option selected>Choose a country</option>
+                                                        <option selected>Choose</option>
                                                         <option value="SMA">SMA</option>
                                                         <option value="S1">S1</option>
                                                         <option value="S2">S2</option>
@@ -634,15 +570,15 @@
                                                     @error('name') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="w-1/6 mx-2">
-                                                    <input wire:model.defer="year_start" type="number" id="year_start" class="@error('year_start') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " placeholder="Doe">
+                                                    <input wire:model.defer="year_start" type="number" id="year_start" class="@error('year_start') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " placeholder="2012">
                                                     @error('year_start') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="w-1/6 mx-2">
-                                                    <input wire:model.defer="year_end" type="number" id="year_end" class="@error('year_end') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " placeholder="Doe">
+                                                    <input wire:model.defer="year_end" type="number" id="year_end" class="@error('year_end') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " placeholder="2015">
                                                     @error('year_end') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="w-3/6 mx-2">
-                                                    <input wire:model.defer="description" type="text" id="description" class="@error('description') border-red-500 @enderror border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" placeholder="John">
+                                                    <input wire:model.defer="description" type="text" id="description" class="@error('description') border-red-500 @enderror border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" placeholder="Universitas ...">
                                                     @error('description') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                             </div>
@@ -696,12 +632,12 @@
                                         <div class="w-5/6">
                                             <div class="flex -mx-2 mb-2">
                                                 <div class="w-1/5 mx-2">
-                                                    <input wire:model="year" type="number" id="year" class="@error('year') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " placeholder="Doe" >
+                                                    <input wire:model="year" type="number" id="year" class="@error('year') border-red-500 @enderror border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 " placeholder="2015" >
                                                     
                                                     @error('year') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>
                                                 <div class="w-4/5 mx-2">
-                                                    <input wire:model="description_informal" type="text" id="description_informal" class="@error('description_informal') border-red-500 @enderror border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" placeholder="John" >
+                                                    <input wire:model="description_informal" type="text" id="description_informal" class="@error('description_informal') border-red-500 @enderror border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-1.5 text-sm" placeholder="Pelatihan" >
                                                     
                                                     @error('description_informal') <span class="text-rose-500 text-xs">{{ $message }}</span> @enderror
                                                 </div>

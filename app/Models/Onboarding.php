@@ -11,7 +11,15 @@ class Onboarding extends Model
     
     protected $guarded = [];
 
-    public function employee() {
+    public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function documents() {
+        return $this->hasMany(OnboardingDocument::class);
+    }
+
+    public function photos() {
+        return $this->hasMany(OnboardingPhoto::class);
     }
 }

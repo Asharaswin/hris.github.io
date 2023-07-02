@@ -16,7 +16,7 @@ class OnboardingSeeder extends Seeder
         foreach ($users as $user) {
             \App\Models\Onboarding::create([
                 'user_id' => $user->id,
-                'percentage' => fake()->randomElement([125, 250, 325, 500, 625, 750, 825, 1000])
+                'percentage' => fake()->randomElement([125, 250, 375, 500, 625, 750, 875, 0])
             ]);
         }
     }

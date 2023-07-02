@@ -106,6 +106,7 @@ class StepOne extends Component
                 $this->father = Auth::user()->familyFather();
                 $this->mother = Auth::user()->familyMother();
                 $this->siblings = Auth::user()->familySiblings();
+                $this->spouse = Auth::user()->familySpouse();
                 break;
 
             case 3:
@@ -200,9 +201,7 @@ class StepOne extends Component
             'birth_date' => 'required',
             'nik' => 'required',
             'no_kk' => 'required',
-            'address' => 'required',
-            'marital_status' => 'required',
-            'no_siblings' => 'required'
+            'address' => 'required'
         ]);
         
         Auth::user()->Update([
@@ -308,5 +307,9 @@ class StepOne extends Component
         $this->job = '';
         $this->relation = '';
 
+    }
+
+    public function deleteFamily($id) {
+        UserFamilyData::findOrFail($id)->delete();
     }
 }

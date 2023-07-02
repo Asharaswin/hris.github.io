@@ -8,7 +8,8 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('page-title')</title>
-    <!--     Fonts and icons     -->
+    <!--     Fonts and icons     -->        
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
